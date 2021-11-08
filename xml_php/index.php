@@ -113,6 +113,18 @@ if(isset($_POST['submit3']) && !empty($_POST['nimi']) && !empty($_POST['hind']) 
     $xmlDoc3->save('andmeteBaas.xml');
     header("refresh: 0;");
 }
+
+// Otsing Toodenimi järgi
+
+function searchByName($query){
+    global $andmed;
+    $result=array();
+    foreach($andmed->toode as $toode){
+        if(substr(strtolower($toode->nimi), 0, strlen($query)) == strtolower($query))
+            array_push($result,$toode);
+    }
+    return $result;
+}
 ?>
 <!DOCTYPE html>
 <html lang="et">
@@ -154,7 +166,25 @@ if(isset($_POST['submit3']) && !empty($_POST['nimi']) && !empty($_POST['hind']) 
         }
     ?>
 </table>
-<h1>Vormist saadud andmete lisamine XML faili (uus XML fail)</h1>
+<h2>Otsing toodenimi järgi</h2>
+<form action="?" method="post">
+    <label for="otsing">Otsing: </label>
+    <input type="text" id="otsing" name="otsing" placeholder="Toode nimi">
+    <input type="submit" value="Otsi">
+</form>
+    <ul>
+        <?php
+            if (!empty($_POST["otsing"])){
+                $result=searchByName($_POST["otsing"]);
+                foreach ($result as $toode){
+                    echo "<li>";
+                    echo $toode->nimi.", ".$toode->hind;
+                    echo "</li>";
+                }
+            }
+        ?>
+    </ul>
+<!--<h1>Vormist saadud andmete lisamine XML faili (uus XML fail)</h1>
 <form method="post" action="" name="vorm1">
     <label for="nimi1">Toode nimi</label>
     <input type="text" id="nimi1" name="nimi1">
@@ -210,7 +240,7 @@ if(isset($_POST['submit3']) && !empty($_POST['nimi']) && !empty($_POST['hind']) 
     <input type="text" id="suurus" name="suurus">
     <br>
     <input type="submit" value="Sisesta" id="submit3" name="submit3">
-</form>
+</form>-->
 </main>
     <?php
     include('../../footer.php');
