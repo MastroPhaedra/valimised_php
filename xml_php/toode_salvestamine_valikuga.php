@@ -1,7 +1,5 @@
 <?php
 // andmete salvestamine XML faili, kus igakord luuakse uus fail (1)
-$andmed=simplexml_load_file('andmeteBaas.xml');
-
 $uus_fail=(isset($_POST["uus_fail"])) && $_POST["uus_fail"];
 
 // XML andmete salvestamine uusBaas.xml
@@ -28,8 +26,9 @@ if(isset($_POST['submit1']) && $uus_fail  && !empty($_POST['nimi1']) && !empty($
     $lisad->appendChild($xmlDoc->createElement('suurus', $_POST['suurus1'])); //первый параметр считывает переменную из XML, вторая из этого php файла
 
     $xmlDoc->save('uusBaas.xml');
+    echo "<script type='text/javascript'>alert('Toode on salvestatud uuel andmebaasil (uusBaas.xml)!');</script>"; // уведомление
 
-    header("refresh: 0;");
+    //header("refresh: 0;");
 }
 
 
@@ -58,8 +57,9 @@ if(isset($_POST['submit1']) && !$uus_fail  && !empty($_POST['nimi1']) && !empty(
     $lisad->appendChild($xmlDoc->createElement('suurus', $_POST['suurus1'])); //первый параметр считывает переменную из XML, вторая из этого php файла
 
     $xmlDoc->save('andmeteBaas.xml');
+    echo "<script type='text/javascript'>alert('Toode on lisatud tavalisel andmebaasil!');</script>"; // уведомление
 
-    header("refresh: 0;");
+    //header("refresh: 0;"); //"Location: https://makarov20.thkit.ee/PHP/phpLehestik/content/xml_php/toode_salvestamine_valikuga.php",
 }
 
 // Otsing Toodenimi järgi
@@ -73,6 +73,8 @@ function searchByName($query){
     }
     return $result;
 }
+
+$andmed=simplexml_load_file('andmeteBaas.xml');
 ?>
 <!DOCTYPE html>
 <html lang="et">
@@ -145,6 +147,7 @@ include('../php_matkaLeht/matk_navigation.php');
         }
     }
     ?>
+<h3><a href="https://github.com/MastroPhaedra/valimised_php-XML/tree/main/xml_php" target="_blank">GitHub</a></h3>
 </main>
     <?php
     include('../../footer.php');
