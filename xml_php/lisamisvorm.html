@@ -3,6 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script type="text/javascript">
+    function check_or_not(thecheckbox, thelabel) {
+    
+    if (!document.getElementById(thecheckbox).checked) {
+        document.getElementById(thelabel).innerHTML = "andmeBaas.xml";
+    }
+    else {
+        document.getElementById(thelabel).innerHTML = "uusBaas.xml";
+    }
+}
+    </script>
 </head>
 <body>
 <main>
@@ -31,7 +42,7 @@
     </tr>
     <tr>
     <td><label for="uus_fail">Loo uus fail:</label></td>
-    <td><input type="checkbox" name="uus_fail" id="uus_fail" value="1"></td>
+    <td><input type="checkbox" name="uus_fail" id="uus_fail" value="1" onclick="check_or_not('uus_fail','checkbox_lbl');"><label name="checkbox_lbl" id="checkbox_lbl">andmeBaas.xml</label></td>
     </tr>
     <tr>
     <td colspan="2" style="text-align:right"><input type="submit" value="Sisesta" id="submit1" name="submit1"></td>
